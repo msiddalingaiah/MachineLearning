@@ -9,3 +9,9 @@ __pycache__/
 
 # data is quite large, so don't commit
 data
+data.zip
+
+# Don't commit models
+*.h5
+
+logs

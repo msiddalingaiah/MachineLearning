@@ -5,7 +5,7 @@ Machine learning models and related examples.
 
 * Install Anaconda version 3.x
 
-As of February 2019, Tensorflow does not support Python 3.7, so Anaconda must be downgraded to 3.6.
+Tensorflow 1.13 does not support Python 3.7, so Anaconda must be downgraded to 3.6 to support Tensorflow 1.13.
 
 On Windows, it is necessary to run Anaconda Prompt as Administrator for the following step only:
 
