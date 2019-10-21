@@ -1,5 +1,11 @@
 # MachineLearning
-Machine learning models and related examples.
+This is a collection of machine learning models and related examples.
+
+Many of these examples are part of my online course: [Practical Introduction to Machine Learning](https://www.udemy.com/course/practical-machine-learning/?referralCode=83919AF0BC008618E4EE). If you want to quickly learn the essentials of machine learning, then this course is for you. You don't have to have any prior knowledge of machine learning, but some Python programming experience is helpful.
+
+You can run these examples locally or in the cloud, using [Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb). Google Colab is a free Jupyter notebook environment that requires no setup and runs entirely in the cloud.
+
+If you want to run Jupyter notebooks locally, follow the steps below to install Anaconda Python, Tensorflow, and Keras.
 
 ## Anaconda Python
 
