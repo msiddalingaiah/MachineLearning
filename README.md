@@ -22,6 +22,6 @@ conda install python=3.6
 For the remaining steps, run Anaconda Prompt normally (Administrator is not required):
 
 ```
-pip install --upgrade tensorflow
+pip install tensorflow==1.15
 pip install Keras
 ```
