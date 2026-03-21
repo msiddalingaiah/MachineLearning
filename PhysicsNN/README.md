@@ -42,6 +42,19 @@ This is the more honest and demanding test. Any small error the model makes at s
 
 The rollout plots let you see this visually — if the purple dashed line tracks the green ground-truth line closely over 150 steps, the model has genuinely internalized the physics rather than just memorizing local patterns. That's also exactly why we added multi-step rollout loss in v4: to penalize this kind of drift during training, not just at evaluation time.
 
+#### What is "MAE"?
+
+MAE stands for **Mean Absolute Error**. It is the average of the absolute differences between the model's predicted positions and the ground-truth positions across all time steps in the rollout:
+
+$$\text{MAE} = \frac{1}{N} \sum_{t=1}^{N} \left| x_{\text{pred}}(t) - x_{\text{true}}(t) \right|$$
+
+In the plots, it summarises the rollout accuracy as a single number in metres. For example, an MAE of 0.003 m means the model's trajectory was off by 3 millimetres on average across all 150 steps.
+
+It is reported instead of MSE (Mean Squared Error) in the plots because MAE is in the same units as position (metres), making it directly interpretable:
+
+$$\text{MSE} = \frac{1}{N} \sum_{t=1}^{N} \left( x_{\text{pred}}(t) - x_{\text{true}}(t) \right)^2$$
+
+MSE squares the errors, which makes it harder to read as a physical quantity.
 
 * Scalar force estimator (3 learned parameters: `b`, `c`, `ε`)
 
