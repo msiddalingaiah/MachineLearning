@@ -1,0 +1,99 @@
+<svg width="680" viewBox="0 0 680 760" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- Background -->
+<rect width="680" height="760" fill="white"/>
+
+<!-- Fonts -->
+<style>
+  text { font-family: Arial, Helvetica, sans-serif; }
+  .th  { font-size: 14px; font-weight: 600; fill: #3C3489; }
+  .ts  { font-size: 12px; font-weight: 400; fill: #534AB7; }
+  .tg  { font-size: 12px; font-weight: 400; fill: #5F5E5A; }
+  .thg { font-size: 14px; font-weight: 600; fill: #444441; }
+  .tht { font-size: 14px; font-weight: 600; fill: #085041; }
+  .tst { font-size: 12px; font-weight: 400; fill: #0F6E56; }
+  .thk { font-size: 14px; font-weight: 600; fill: #27500A; }
+  .arr { stroke: #888780; stroke-width: 1.5; fill: none; }
+  .lbl { font-size: 11px; font-weight: 400; fill: #888780; }
+</style>
+
+<!-- Box 1: Differentiator (fixed physics) -->
+<rect x="180" y="55" width="310" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text class="th"  x="335" y="77"  text-anchor="middle" dominant-baseline="central">Differentiator</text>
+<text class="ts"  x="335" y="98"  text-anchor="middle" dominant-baseline="central">v(t) = [x(t) − x(t−1)] / dt</text>
+
+<!-- Box 2: MLP Force Estimator (learned) -->
+<rect x="180" y="161" width="310" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text class="tht" x="335" y="183" text-anchor="middle" dominant-baseline="central">MLP force estimator</text>
+<text class="tst" x="335" y="204" text-anchor="middle" dominant-baseline="central">damping + friction  (learned)</text>
+
+<!-- Box 3: Force summation -->
+<rect x="180" y="267" width="310" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.8"/>
+<text class="thg" x="335" y="289" text-anchor="middle" dominant-baseline="central">Force summation</text>
+<text class="tg"  x="335" y="310" text-anchor="middle" dominant-baseline="central">F_total = F_int + F_ext</text>
+
+<!-- Box 4: Newton's 2nd law (fixed physics) -->
+<rect x="180" y="373" width="310" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text class="th"  x="335" y="395" text-anchor="middle" dominant-baseline="central">Newton's 2nd law</text>
+<text class="ts"  x="335" y="416" text-anchor="middle" dominant-baseline="central">a(t) = F_total / m</text>
+
+<!-- Box 5: Velocity integrator (fixed physics) -->
+<rect x="180" y="479" width="310" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text class="th"  x="335" y="501" text-anchor="middle" dominant-baseline="central">Velocity integrator</text>
+<text class="ts"  x="335" y="522" text-anchor="middle" dominant-baseline="central">v(t+1) = v(t) + a(t) · dt</text>
+
+<!-- Box 6: Position integrator (fixed physics) -->
+<rect x="180" y="585" width="310" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text class="th"  x="335" y="607" text-anchor="middle" dominant-baseline="central">Position integrator</text>
+<text class="ts"  x="335" y="628" text-anchor="middle" dominant-baseline="central">x(t+1) = x(t) + v(t+1) · dt</text>
+
+<!-- Output box -->
+<rect x="270" y="673" width="130" height="36" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.8"/>
+<text class="thk" x="335" y="691" text-anchor="middle" dominant-baseline="central">x(t+1)</text>
+
+<!-- Main vertical arrows -->
+<line x1="335" y1="111" x2="335" y2="157" class="arr" marker-end="url(#arrow)"/>
+<line x1="335" y1="217" x2="335" y2="263" class="arr" marker-end="url(#arrow)"/>
+<line x1="335" y1="323" x2="335" y2="369" class="arr" marker-end="url(#arrow)"/>
+<line x1="335" y1="429" x2="335" y2="475" class="arr" marker-end="url(#arrow)"/>
+<line x1="335" y1="535" x2="335" y2="581" class="arr" marker-end="url(#arrow)"/>
+<line x1="335" y1="641" x2="335" y2="669" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Arrow labels -->
+<text class="lbl" x="345" y="137" dominant-baseline="central">v(t)</text>
+<text class="lbl" x="345" y="243" dominant-baseline="central">F_int</text>
+<text class="lbl" x="345" y="349" dominant-baseline="central">F_total</text>
+<text class="lbl" x="345" y="455" dominant-baseline="central">a(t)</text>
+<text class="lbl" x="345" y="561" dominant-baseline="central">v(t+1)</text>
+
+<!-- Left inputs into box 1 -->
+<text class="lbl" x="20" y="78"  dominant-baseline="central">x(t−1)</text>
+<line x1="72" y1="78"  x2="178" y2="78"  class="arr" marker-end="url(#arrow)"/>
+<text class="lbl" x="20" y="100" dominant-baseline="central">x(t)</text>
+<line x1="54" y1="100" x2="178" y2="100" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Right-side inputs -->
+<text class="lbl" x="502" y="83"  dominant-baseline="central">dt  (learned)</text>
+<line x1="492" y1="83"  x2="502" y2="83"  class="arr"/>
+<line x1="640" y1="83"  x2="504" y2="83"  class="arr" marker-end="url(#arrow)"/>
+
+<text class="lbl" x="502" y="189" dominant-baseline="central">mass</text>
+<line x1="600" y1="189" x2="492" y2="189" class="arr" marker-end="url(#arrow)"/>
+
+<text class="lbl" x="502" y="295" dominant-baseline="central">F_ext</text>
+<line x1="600" y1="295" x2="492" y2="295" class="arr" marker-end="url(#arrow)"/>
+
+<text class="lbl" x="502" y="401" dominant-baseline="central">mass</text>
+<line x1="600" y1="401" x2="492" y2="401" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Legend -->
+<rect x="180" y="726" width="13" height="13" rx="3" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.8"/>
+<text class="lbl" x="200" y="733" dominant-baseline="central">Fixed physics layer</text>
+<rect x="370" y="726" width="13" height="13" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.8"/>
+<text class="lbl" x="390" y="733" dominant-baseline="central">Learned component</text>
+</svg>

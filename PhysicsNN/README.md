@@ -61,6 +61,14 @@ The model is a chain of interpretable physics layers with a single learned compo
 
 ### Forward Pass
 
+**Model Architecture**
+
+![Model architecture](images/model_architecture.png)
+
+**MLP Architecture**
+
+![MLP architecture](images/mlp_architecture.png)
+
 ```
 x(t-1), x(t)  ──► [Differentiator]      ──► v(t) = [x(t) - x(t-1)] / dt
                                                 │
