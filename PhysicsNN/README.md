@@ -31,6 +31,20 @@ The model performs well using only four features: current position, previous pos
 
 ![V4](images/Figure_4.png)
 
+In the figure above, train loss increase is a direct consequence of the curriculum warm-up, and it's actually the system behaving correctly. The key is that the training loss and validation loss are not measuring the same thing.
+
+**Validation loss** is always computed as a plain single-step MSE — one forward pass, one error, fixed definition throughout all 300 epochs. So as the model improves, it falls steadily.
+
+**Training loss** is a weighted multi-step rollout loss whose definition changes every epoch. The curriculum ramps $active_K$ from 1 to 10 over the first 50 epochs, and the "linear" weighting assigns progressively higher weight to later steps. So as K grows:
+
+* more prediction steps are unrolled and summed into the loss
+* later steps carry heavier weights
+* each additional step compounds the model's own errors as inputs
+
+The result is that the training loss value naturally inflates as the task gets harder, even while the model is genuinely improving at each individual step. By epoch 50 when K=10, the training loss is measuring a fundamentally harder quantity than it was at epoch 1 when K=1.
+
+A useful analogy: imagine grading a student on progressively longer essays each week. Their writing is getting better, but the raw word-count of errors keeps rising simply because the essays are longer. The metric and the skill are moving in opposite directions.
+
 ---
 
 ## Model Architecture
