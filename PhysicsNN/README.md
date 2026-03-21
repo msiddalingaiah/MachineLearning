@@ -13,7 +13,35 @@ The immediate scope is one-dimensional motion of a single mass. The design is in
 
 ## Results
 
-The model performs well using only four features: current position, previous position, object mass, and applied external force. This model should be sufficient to act as a single axis control system. Below are the simulation results over several iterations, showing how the model evolved:
+The model performs well using only four features: current position, previous position, object mass, and applied external force. This model should be sufficient to act as a single axis control system. Below are the simulation results over several iterations, showing how the model evolved.
+
+### What is "model rollout"?
+
+"Model rollout" refers to running the model **autoregressively** over many time steps — where each predicted position is fed back in as the input for the next prediction, rather than using ground-truth positions throughout.
+
+Here's the distinction concretely:
+
+#### One-step prediction
+*(what training loss measures)*
+
+At every step, the model sees the true `x(t-1)` and `x(t)` from the simulation, and predicts `x(t+1)`. Ground truth is always used as the starting point. Errors don't accumulate because each step is independent.
+
+#### Rollout
+*(what the plots show)*
+
+The model is given only the first two true positions to seed it. After that, every subsequent `x(t)` it receives is its *own previous prediction*, not the ground truth. So the chain looks like:
+
+```
+[x_true(0), x_true(1)]  →  x_pred(2)
+[x_true(1), x_pred(2)]  →  x_pred(3)
+[x_pred(2), x_pred(3)]  →  x_pred(4)
+...and so on for 150 steps
+```
+
+This is the more honest and demanding test. Any small error the model makes at step 2 becomes part of the input at step 3, potentially compounding. A model that looks accurate on one-step loss can still drift badly over a long rollout if it hasn't learned the underlying dynamics well.
+
+The rollout plots let you see this visually — if the purple dashed line tracks the green ground-truth line closely over 150 steps, the model has genuinely internalized the physics rather than just memorizing local patterns. That's also exactly why we added multi-step rollout loss in v4: to penalize this kind of drift during training, not just at evaluation time.
+
 
 * Scalar force estimator (3 learned parameters: `b`, `c`, `ε`)
 
